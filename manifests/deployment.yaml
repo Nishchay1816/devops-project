@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: webapp-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -16,4 +16,4 @@ spec:
       - name: webapp
         image: nishchay18/devops:latest
         ports:
-        - containerPort: 30803
+        - containerPort: 8000
