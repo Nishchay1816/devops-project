@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: webapp-rollout
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: webapp
@@ -13,12 +13,13 @@ spec:
         app: webapp
     spec:
       containers:
-        - name: webapp
-          image: nishchay18/devops:new_version
-          ports:
-            - containerPort: 8000
+      - name: webapp
+        image: nishchay18/devops:new_version
+        ports:
+        - containerPort: 8000
   strategy:
     canary:
       steps:
         - setWeight: 10
-          pause: {}
+          pause:
+            duration: 60s
