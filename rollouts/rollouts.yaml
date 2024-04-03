@@ -3,14 +3,7 @@ kind: Rollout
 metadata:
   name: webapp-rollout
 spec:
-  replicas: 3
-  selector:
-    matchLabels:apiVersion: argoproj.io/v1alpha1
-kind: Rollout
-metadata:
-  name: webapp-rollout
-spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: webapp
@@ -21,12 +14,13 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: nishchay18/devops:latest
+          image: nishchay18/devops:v2  # Update this with your new image version
           ports:
             - containerPort: 8000
   strategy:
     canary:
       steps:
+        - pause: {}
         - setWeight: 25
           pause:
             duration: 10s
@@ -37,21 +31,3 @@ spec:
   selector:
     matchLabels:
       app: webapp
-
-      app: webapp
-  template:
-    metadata:
-      labels:
-        app: webapp
-    spec:
-      containers:
-      - name: webapp
-        image: nishchay18/devops:new_version
-        ports:
-        - containerPort: 8000
-  strategy:
-    canary:
-      steps:
-        - setWeight: 10
-          pause:
-            duration: 60s
